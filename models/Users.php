@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "users".
@@ -12,7 +13,7 @@ use Yii;
  * @property string|null $name
  * @property string|null $family
  * @property string|null $patronymic
- * @property string $e-mail
+ * @property string $e_mail
  * @property string|null $phone
  * @property string|null $hash_passw
  * @property string|null $created_at
@@ -26,6 +27,7 @@ use Yii;
  */
 class Users extends \yii\db\ActiveRecord
 {
+    public $password;
     /**
      * {@inheritdoc}
      */
@@ -40,10 +42,11 @@ class Users extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['e-mail'], 'required'],
-            [['created_at', 'updated_at'], 'safe'],
-            [['name_auth_item', 'name', 'family', 'patronymic', 'e-mail', 'hash_passw'], 'string', 'max' => 255],
+            [['e_mail'], 'required'],
+            [['created_at', 'updated_at', 'password'], 'safe'],
+            [['name_auth_item', 'name', 'family', 'patronymic', 'e_mail', 'hash_passw'], 'string', 'max' => 255],
             [['phone'], 'string', 'max' => 15],
+            ['e_mail', 'email'],
         ];
     }
 
@@ -58,7 +61,7 @@ class Users extends \yii\db\ActiveRecord
             'name' => 'Name',
             'family' => 'Family',
             'patronymic' => 'Patronymic',
-            'e-mail' => 'E Mail',
+            'e_mail' => 'E Mail',
             'phone' => 'Phone',
             'hash_passw' => 'Hash Passw',
             'created_at' => 'Created At',

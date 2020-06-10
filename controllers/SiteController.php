@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Users;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -9,6 +10,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\SignupForm;
 
 class SiteController extends Controller
 {
@@ -121,8 +123,32 @@ class SiteController extends Controller
      *
      * @return string
      */
+    public function actionAddUser(){
+        $model = new Users();
+        if ($model->load(\Yii::$app->request->post())&& $model->validate()) {
+            print_r($model);
+            die();
+        }
+        else{
+            echo 'Е-майл не правильный';
+        }
+
+    }
     public function actionAbout()
     {
         return $this->render('about');
     }
+
+    public function actionSignup(){
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+        $model = new Users();
+        if ($model->load(\Yii::$app->request->post())){
+        echo '<pre>'; print_r($model->password);
+        die;
+        }
+        return $this->render('signup', compact('model'));
+    }
+
 }
