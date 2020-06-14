@@ -16,8 +16,6 @@ use yii\db\ActiveRecord;
  * @property string $e_mail
  * @property string|null $phone
  * @property string|null $hash_passw
- * @property string|null $created_at
- * @property string|null $updated_at
  *
  * @property Companyes[] $companyes
  * @property Journalizations[] $journalizations
@@ -27,7 +25,10 @@ use yii\db\ActiveRecord;
  */
 class Users extends \yii\db\ActiveRecord
 {
+    /* Пароль*/
     public $password;
+    /* Повтор пароля*/
+    public $password_repeat;
     /**
      * {@inheritdoc}
      */
@@ -42,11 +43,12 @@ class Users extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['e_mail'], 'required'],
-            [['created_at', 'updated_at', 'password'], 'safe'],
+            [['e_mail','name','password','name_auth_item'], 'required'],
+            ['password', 'compare', 'compareAttribute' => 'password_repeat'],
+            [['password'], 'safe'],
             [['name_auth_item', 'name', 'family', 'patronymic', 'e_mail', 'hash_passw'], 'string', 'max' => 255],
-            [['phone'], 'string', 'max' => 15],
-            ['e_mail', 'email'],
+            [['phone'], 'string', 'max' => 20],
+            ['e_mail', 'email', 'message' => 'Некорректный e-mail адрес'],
         ];
     }
 
@@ -64,8 +66,7 @@ class Users extends \yii\db\ActiveRecord
             'e_mail' => 'E Mail',
             'phone' => 'Phone',
             'hash_passw' => 'Hash Passw',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+
         ];
     }
 
@@ -74,6 +75,25 @@ class Users extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
+    public static function findIdentity($id)
+    {
+        return static::findOne(['id' => $id]);
+    }
+    public static function findByUsername($name)
+    {
+        return static::findOne(['name' => $name]);
+    }
+
+    public function validatePassword($password)
+    {
+        return Yii::$app->security->validatePassword($password, $this->hash_passw);
+    }
+
+    public function setPassword($password)
+    {
+        $this->hash_passw = Yii::$app->security->generatePasswordHash($password);
+    }
+
     public function getCompanyes()
     {
         return $this->hasMany(Companyes::className(), ['user_id' => 'id']);
@@ -117,5 +137,10 @@ class Users extends \yii\db\ActiveRecord
     public function getResumes()
     {
         return $this->hasMany(Resumes::className(), ['id_user' => 'id']);
+    }
+
+    public function getId()
+    {
+        return $this->getPrimaryKey();
     }
 }

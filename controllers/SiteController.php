@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Users;
+use app\models\Usersi;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -123,15 +124,17 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionAddUser(){
-        $model = new Users();
-        if ($model->load(\Yii::$app->request->post())&& $model->validate()) {
-            print_r($model);
-            die();
+    public function actionCreateUser(){
+
+            $user = new Usersi();
+            $user->username = 'admin';
+            $user->setPassword('admin');
+            $user->e_mail = 'admin@mail.ru';
+
+            if ($user->save()) {
+                echo 'good';
         }
-        else{
-            echo 'Е-майл не правильный';
-        }
+        var_dump($user->save());
 
     }
     public function actionAbout()
