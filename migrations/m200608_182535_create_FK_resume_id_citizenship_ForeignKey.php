@@ -15,7 +15,7 @@ class m200608_182535_create_FK_resume_id_citizenship_ForeignKey extends Migratio
         $this->addForeignKey(
             'fk-resume-id_citizenship',
             'resumes',
-            'id_user',
+            'id_citizenship',
             'citizenship',
             'id',
             'CASCADE',

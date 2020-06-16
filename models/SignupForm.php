@@ -1,52 +1,66 @@
 <?php
 
 namespace app\models;
+
+use Yii;
 use yii\base\Model;
-use yii\behaviors\TimestampBehavior;
+use app\models\User;
 
-class SignupForm extends Model{
+/**
+ * Signup form
+ */
+class SignupForm extends Model
+{
 
-    public $e_mail;
+    public $username;
+    public $email;
     public $password;
     public $password_repeat;
-    public $name_auth_item;
-    public $name;
-    public $family;
-    public $patronymic;
-    public $phone;
-    public $created_at;
-    public $updated_at;
+    public $rolename;
 
-
-
-
-    public function rules() {
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
         return [
-            [['e_mail','name','password','name_auth_item'], 'required'],
+            ['username', 'trim'],
+            ['username', 'required','message' => 'Поле с логином не заполнено'],
+            ['username', 'unique', 'targetClass' => '\app\models\User', 'message' => 'Такой логин уже существвует'],
+            ['username', 'string', 'min' => 2, 'max' => 255],
+            ['email', 'trim'],
+            ['email', 'required','message' => 'Поле с e-mail не заполнено'],
+            ['email', 'email'],
+            ['email', 'string', 'max' => 255],
+            ['email', 'unique', 'targetClass' => '\app\models\User', 'message' => 'Такой e-mail уже существует'],
+            [['password','password_repeat'], 'required','message' => 'Поле с паролем не заполнено'],
+            [['password','password_repeat'], 'string'],
+            ['password_repeat', 'compare', 'compareAttribute' => 'password', 'operator' => '==','message' => 'Пароли не совпадают!'],
+            [['rolename'], 'required', 'message' => 'Роль не выбрана'],
+            ['rolename', 'default', 'value' => 'vacant'],
 
-            [['created_at', 'updated_at', 'password'], 'safe'],
-            [['name_auth_item', 'name', 'family', 'patronymic', 'e_mail'], 'string', 'max' => 255],
-            [['phone'], 'string', 'max' => 20],
-            ['e_mail', 'email', 'message' => 'Некорректный e-mail адрес'],
         ];
     }
 
-
+    /**
+     * Signs user up.
+     *
+     * @return User|null the saved model or null if saving fails
+     */
     public function signup()
     {
 
+        if (!$this->validate()) {
+            return null;
+        }
 
-        $user = new Users();
-        $user->e_mail = $this->e_mail;
+        $user = new User();
+        $user->username = $this->username;
+        $user->email = $this->email;
         $user->setPassword($this->password);
-        $user->name_auth_item = $this->name_auth_item;
-        $user->name = $this->name;
-        $user->family = $this->family;
-        $user->patronymic = $this->patronymic;
-        $user->phone = $this->phone;
-        $user->created_at = time();
-        $user->updated_at = time();
-        $user->save();
+        $user->generateAuthKey();
+        $user->role_name = $this->rolename;
+        return $user->save() ? $user : null;
     }
 
 }

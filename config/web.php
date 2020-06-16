@@ -8,6 +8,7 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -19,6 +20,12 @@ $config = [
         ],
     ],
     'components' => [
+        'formatter' => [
+            'class' => 'yii\i18n\Formatter',
+            'dateFormat' => 'php:d.m.Y',
+            'datetimeFormat' => 'php:d.m.Y H:i:s',
+            'timeFormat' => 'php:H:i:s',
+        ],
         'authManager' => [
             'class' => 'yii\rbac\DbManager'
         ],

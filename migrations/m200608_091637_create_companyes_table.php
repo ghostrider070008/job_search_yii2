@@ -17,7 +17,7 @@ class m200608_091637_create_companyes_table extends Migration
             'user_id' => $this->integer(),
             'name' => $this->string(255)->notNull(),
             'phone' => $this->string(20),
-            'e-mail' => $this->string(255),
+            'e_mail' => $this->string(255),
             'created_at' => $this->timestamp()->defaultExpression("now()"),
         ]);
     }

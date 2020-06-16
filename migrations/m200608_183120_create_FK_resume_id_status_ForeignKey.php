@@ -30,7 +30,7 @@ class m200608_183120_create_FK_resume_id_status_ForeignKey extends Migration
     public function safeDown()
     {
         $this->dropForeignKey(
-            'fk-resume-fk-resume-id-status',
+            'fk-resume-id-status',
             'resumes'
         );
     }

@@ -3,9 +3,9 @@
 use yii\db\Migration;
 
 /**
- * Class m200609_190658_create_fk_vacancy_id_educations
+ * Class m200616_105522_create_fk_companyes_user_id
  */
-class m200609_190658_create_fk_vacancy_id_educations extends Migration
+class m200616_105522_create_fk_companyes_user_id extends Migration
 {
     /**
      * {@inheritdoc}
@@ -13,10 +13,10 @@ class m200609_190658_create_fk_vacancy_id_educations extends Migration
     public function safeUp()
     {
         $this->addForeignKey(
-            'fk-vacancy-id-educations',
-            'vacancy',
-            'id_educations',
-            'educations',
+            'fk-companyes_user_id',
+            'companyes',
+            'user_id',
+            'users',
             'id',
             'CASCADE',
             'CASCADE'
@@ -29,10 +29,11 @@ class m200609_190658_create_fk_vacancy_id_educations extends Migration
      */
     public function safeDown()
     {
-       $this->dropForeignKey(
-           'fk-vacancy-id-educations',
-           'vacancy'
-       );
+        $this->dropForeignKey(
+            'fk-companeyes_user_id',
+            'companyes'
+
+        );
     }
 
     /*
@@ -44,7 +45,7 @@ class m200609_190658_create_fk_vacancy_id_educations extends Migration
 
     public function down()
     {
-        echo "m200609_190658_create_fk_vacancy_id_educations cannot be reverted.\n";
+        echo "m200616_105522_create_fk_companyes_user_id cannot be reverted.\n";
 
         return false;
     }

@@ -2,7 +2,7 @@
 
 namespace app\controllers;
 
-use app\models\Users;
+use app\models\User;
 use app\models\Usersi;
 use Yii;
 use yii\filters\AccessControl;
@@ -80,6 +80,10 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            if ($_SESSION['__id'] <> ''){
+                $user = new User();
+                $_SESSION['__role_name'] = $user->getRolename($_SESSION['__id']);
+            }
             return $this->goBack();
         }
 
@@ -142,16 +146,23 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
-    public function actionSignup(){
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
+
+
+    public function actionSignup()
+    {
+        $model = new SignupForm();
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($user = $model->signup()) {
+                if (Yii::$app->getUser()->login($user)) {
+                    return $this->goHome();
+                }
+            }
         }
-        $model = new Users();
-        if ($model->load(\Yii::$app->request->post())){
-        echo '<pre>'; print_r($model->password);
-        die;
-        }
-        return $this->render('signup', compact('model'));
+
+        return $this->render('signup', [
+            'model' => $model,
+        ]);
     }
 
 }

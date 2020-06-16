@@ -11,7 +11,7 @@ use yii\behaviors\TimestampBehavior;
  * This is the model class for table "users".
  *
  * @property int $id
- * @property int|null $role_id
+ * @property string $role_name
  * @property string $username
  * @property string|null $auth_key
  * @property string $password_hash
@@ -57,7 +57,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return [
             'id' => 'ID',
-            'role_id' => 'Role ID',
+            'role_name' => 'Role Name',
             'username' => 'Username',
             'auth_key' => 'Auth Key',
             'password_hash' => 'Password Hash',
