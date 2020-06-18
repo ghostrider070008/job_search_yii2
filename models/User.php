@@ -6,6 +6,7 @@ use Yii;
 use yii\base\NotSupportedException;
 use yii\web\IdentityInterface;
 use yii\behaviors\TimestampBehavior;
+use yii\db\Query;
 
 /**
  * This is the model class for table "users".
@@ -116,5 +117,18 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         return static::find()->select(['role_name'])
             ->where(['id' => $_SESSION['__id']])
             ->column();
+    }
+    public function getUsername($user_name){
+
+        $query = new Query();
+        return $query->select('username')
+            ->from('users')
+            ->where('id=:user_id',['user_id' => $user_name])
+            ->column();
+    }
+
+    public function lastUser(){
+        $sql = 'SELECT id FROM users ORDER BY id DESC LIMIT 0,1;';
+        return User::findBySql($sql)->column();
     }
 }

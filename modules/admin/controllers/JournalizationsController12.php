@@ -1,19 +1,18 @@
 <?php
 
-namespace app\controllers;
+namespace app\modules\admin\controllers;
 
-use app\modules\admin\models\Journalizations;
 use Yii;
-use app\models\Vacancy;
-use app\models\VacancySearch;
+use app\modules\admin\models\Journalizations1;
+use app\modules\admin\models\Journalizations1Search;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * VacancyController implements the CRUD actions for Vacancy model.
+ * JournalizationsController12 implements the CRUD actions for Journalizations1 model.
  */
-class VacancyController extends Controller
+class JournalizationsController12 extends Controller
 {
     /**
      * {@inheritdoc}
@@ -31,12 +30,12 @@ class VacancyController extends Controller
     }
 
     /**
-     * Lists all Vacancy models.
+     * Lists all Journalizations1 models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new VacancySearch();
+        $searchModel = new Journalizations1Search();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -46,7 +45,7 @@ class VacancyController extends Controller
     }
 
     /**
-     * Displays a single Vacancy model.
+     * Displays a single Journalizations1 model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -59,26 +58,17 @@ class VacancyController extends Controller
     }
 
     /**
-     * Creates a new Vacancy model.
+     * Creates a new Journalizations1 model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Vacancy();
+        $model = new Journalizations1();
 
-        if ($model->load(Yii::$app->request->post())){
-        $model->created_at = gmdate("Y-m-d H:i:s");
-            if ($model->save()) {
-                $journalizations = new Journalizations();
-                if ($journalizations->Oparations($_SESSION['__id'], 1,'22')){
-                    return $this->redirect(['view', 'id' => $model->id]);
-                }
-
-
-            }
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
-
 
         return $this->render('create', [
             'model' => $model,
@@ -86,7 +76,7 @@ class VacancyController extends Controller
     }
 
     /**
-     * Updates an existing Vacancy model.
+     * Updates an existing Journalizations1 model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -97,10 +87,7 @@ class VacancyController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $journalizations = new Journalizations();
-            if ($journalizations->Oparations($_SESSION['__id'], 3, '22')) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
@@ -109,7 +96,7 @@ class VacancyController extends Controller
     }
 
     /**
-     * Deletes an existing Vacancy model.
+     * Deletes an existing Journalizations1 model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -118,26 +105,25 @@ class VacancyController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-        $journalizations = new Journalizations();
-        if ($journalizations->Oparations($_SESSION['__id'], 2,'22')) {
 
-            return $this->redirect(['index']);
-        }
+        return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Vacancy model based on its primary key value.
+     * Finds the Journalizations1 model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Vacancy the loaded model
+     * @return Journalizations1 the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Vacancy::findOne($id)) !== null) {
+        if (($model = Journalizations1::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+
 }

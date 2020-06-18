@@ -1,15 +1,15 @@
 <?php
 
-namespace app\models;
+namespace app\modules\admin\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Vacancy;
+use app\modules\admin\models\Tables;
 
 /**
- * VacancySearch represents the model behind the search form of `app\models\Vacancy`.
+ * TablesSearch represents the model behind the search form of `app\modules\admin\models\Tables`.
  */
-class VacancySearch extends Vacancy
+class TablesSearch extends Tables
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class VacancySearch extends Vacancy
     public function rules()
     {
         return [
-            [['id', 'id_companyes', 'id_status', 'id_cities', 'id_positions', 'id_educations', 'salary', 'id_schedules'], 'integer'],
-            [['text', 'phone', 'e_mail', 'created_at'], 'safe'],
+            [['id'], 'integer'],
+            [['name'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class VacancySearch extends Vacancy
      */
     public function search($params)
     {
-        $query = Vacancy::find();
+        $query = Tables::find();
 
         // add conditions that should always apply here
 
@@ -59,19 +59,9 @@ class VacancySearch extends Vacancy
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'id_companyes' => $this->id_companyes,
-            'id_status' => $this->id_status,
-            'id_cities' => $this->id_cities,
-            'id_positions' => $this->id_positions,
-            'id_educations' => $this->id_educations,
-            'salary' => $this->salary,
-            'id_schedules' => $this->id_schedules,
-            'created_at' => $this->created_at,
         ]);
 
-        $query->andFilterWhere(['like', 'text', $this->text])
-            ->andFilterWhere(['like', 'phone', $this->phone])
-            ->andFilterWhere(['like', 'e_mail', $this->e_mail]);
+        $query->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
     }

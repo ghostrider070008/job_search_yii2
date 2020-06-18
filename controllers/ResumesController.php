@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\modules\admin\models\Journalizations;
 use Yii;
 use app\models\Resumes;
 use app\models\ResumesSearch;
@@ -75,7 +76,10 @@ class ResumesController extends Controller
 
 
             if ($model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                $journalizations = new Journalizations();
+                if ($journalizations->Oparations($_SESSION['__id'], 1,'17')) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
             }
         }
 
@@ -97,7 +101,11 @@ class ResumesController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            $journalizations = new Journalizations();
+            if ($journalizations->Oparations($_SESSION['__id'], 3,'17')){
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
         }
 
         return $this->render('update', [
@@ -115,6 +123,8 @@ class ResumesController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
+        $journalizations = new Journalizations();
+        $journalizations->Oparations($_SESSION['__id'], 2,'17');
 
         return $this->redirect(['index']);
     }

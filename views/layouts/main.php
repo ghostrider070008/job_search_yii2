@@ -9,6 +9,9 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use app\models\Vacancy;
+use app\models\Resumes;
+use yii\helpers\Url;
 
 AppAsset::register($this);
 ?>
@@ -37,7 +40,7 @@ AppAsset::register($this);
     ]);
 
     $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
+        ['label' => 'Главная', 'url' => ['/site/index']],
         ['label' => 'About', 'url' => ['/site/about']],
         ['label' => 'Contact', 'url' => ['/site/contact']],
     ];
@@ -54,6 +57,9 @@ AppAsset::register($this);
             )
             . Html::endForm()
             . '</li>';
+        $menuItems[]= '<li>'
+            . Html::a('Личный кабинет',Url::to(['/site/personal-account']))
+        .'</li>';
 
     }
 
@@ -78,6 +84,19 @@ AppAsset::register($this);
 <footer class="footer">
     <div class="container">
         <p class="pull-left">&copy; Job Search <?= date('Y') ?></p>
+        <div style="clear: both; width: 100%"></div>
+            <p class="pull-left">Количество активных вакансий:<? $vacancy = new Vacancy();
+                    echo $vacancy->activeVacancy(1)[0];?>
+            </p>
+            <div style="clear: both; width: 100%"></div>
+        <p class="pull-left">Количество активных резюме:<? $resumes = new Resumes();
+            echo $resumes->getCountResume(1)[0];?>
+        </p>
+        <div style="clear: both; width: 100%"></div>
+        <p class="pull-left">Количество нашедших работу:<? $resumes = new Resumes();
+            echo $resumes->getCountResume(2)[0];?>
+        </p>
+
 
     </div>
 </footer>

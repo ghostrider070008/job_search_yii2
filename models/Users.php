@@ -100,7 +100,7 @@ class Users extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Journalizations]].
+     * Gets query for [[Journalizations1]].
      *
      * @return \yii\db\ActiveQuery
      */

@@ -23,7 +23,7 @@ class m200608_102235_create_vacancy_table extends Migration
             'id_schedules' => $this->integer(),
             'text' => $this->text(),
             'phone' => $this->string(255),
-            'e-mail' => $this->string(255),
+            'e_mail' => $this->string(255),
             'created_at' => $this->timestamp()->defaultExpression("now()"),
         ]);
     }

@@ -4,6 +4,8 @@ namespace app\controllers;
 
 use app\models\User;
 use app\models\Usersi;
+use app\models\Vacancy;
+use app\modules\admin\models\Journalizations;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -64,7 +66,8 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $model = new Vacancy();
+        return $this->render('index', ['model' => $model]);
     }
 
     /**
@@ -155,7 +158,13 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
                 if (Yii::$app->getUser()->login($user)) {
-                    return $this->goHome();
+                    $user = new User();
+                    $journalizations = new Journalizations();
+                    if ($journalizations->Oparations($user->lastUser()[0], 1,'21')){
+                        return $this->goHome();
+                    }
+
+
                 }
             }
         }
@@ -163,6 +172,11 @@ class SiteController extends Controller
         return $this->render('signup', [
             'model' => $model,
         ]);
+    }
+
+    public function actionPersonalAccount(){
+
+        return $this->render('personalaccount');
     }
 
 }

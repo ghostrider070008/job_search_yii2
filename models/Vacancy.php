@@ -142,4 +142,14 @@ class Vacancy extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Status::className(), ['id' => 'id_status']);
     }
+    public function getVacancyes(){
+        return static::find()->select()
+            ->from(vacancy)
+            ->all();
+    }
+
+    public function activeVacancy($id_status){
+        $sql = 'SELECT count(id) from vacancy where id_status=:id_status;';
+        return static::findBySql($sql,[':id_status' => $id_status] )->column();
+    }
 }

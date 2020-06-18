@@ -5,21 +5,21 @@ namespace app\modules\admin\models;
 use Yii;
 
 /**
- * This is the model class for table "operations".
+ * This is the model class for table "tables".
  *
  * @property int $id
- * @property string|null $title
+ * @property string $name
  *
  * @property Journalizations[] $journalizations
  */
-class Operations extends \yii\db\ActiveRecord
+class Tables extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'operations';
+        return 'tables';
     }
 
     /**
@@ -28,7 +28,8 @@ class Operations extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title'], 'string', 'max' => 255],
+            [['name'], 'required'],
+            [['name'], 'string', 'max' => 255],
         ];
     }
 
@@ -39,7 +40,7 @@ class Operations extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
+            'name' => 'Name',
         ];
     }
 
@@ -50,6 +51,6 @@ class Operations extends \yii\db\ActiveRecord
      */
     public function getJournalizations()
     {
-        return $this->hasMany(Journalizations1::className(), ['id_operations' => 'id']);
+        return $this->hasMany(Journalizations1::className(), ['id_tables' => 'id']);
     }
 }

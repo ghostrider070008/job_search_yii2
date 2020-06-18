@@ -4,16 +4,17 @@ namespace app\controllers;
 
 use app\modules\admin\models\Journalizations;
 use Yii;
-use app\models\Vacancy;
-use app\models\VacancySearch;
+use app\models\User;
+use app\models\Messages;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * VacancyController implements the CRUD actions for Vacancy model.
+ * MessagesController implements the CRUD actions for Messages model.
  */
-class VacancyController extends Controller
+class MessagesController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -31,22 +32,26 @@ class VacancyController extends Controller
     }
 
     /**
-     * Lists all Vacancy models.
+     * Lists all Messages models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new VacancySearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = new ActiveDataProvider([
+            'query' => Messages::find(),
+        ]);
+
+
+
+
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
-     * Displays a single Vacancy model.
+     * Displays a single Messages model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -59,26 +64,24 @@ class VacancyController extends Controller
     }
 
     /**
-     * Creates a new Vacancy model.
+     * Creates a new Messages model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Vacancy();
+        $model = new Messages();
 
         if ($model->load(Yii::$app->request->post())){
-        $model->created_at = gmdate("Y-m-d H:i:s");
-            if ($model->save()) {
-                $journalizations = new Journalizations();
-                if ($journalizations->Oparations($_SESSION['__id'], 1,'22')){
-                    return $this->redirect(['view', 'id' => $model->id]);
-                }
-
-
+            $model->created_at = gmdate("Y-m-d H:i:s");
+            $model->id_users_sender = $_SESSION['__id'];
+             if ($model->save()) {
+                 $journalizations = new Journalizations();
+                 if ($journalizations->Oparations($_SESSION['__id'], 1,'13')) {
+                     return $this->redirect(['view', 'id' => $model->id]);
+                 }
             }
         }
-
 
         return $this->render('create', [
             'model' => $model,
@@ -86,7 +89,7 @@ class VacancyController extends Controller
     }
 
     /**
-     * Updates an existing Vacancy model.
+     * Updates an existing Messages model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -98,7 +101,7 @@ class VacancyController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $journalizations = new Journalizations();
-            if ($journalizations->Oparations($_SESSION['__id'], 3, '22')) {
+            if ($journalizations->Oparations($_SESSION['__id'], 3,'13')) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         }
@@ -109,7 +112,7 @@ class VacancyController extends Controller
     }
 
     /**
-     * Deletes an existing Vacancy model.
+     * Deletes an existing Messages model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -119,22 +122,22 @@ class VacancyController extends Controller
     {
         $this->findModel($id)->delete();
         $journalizations = new Journalizations();
-        if ($journalizations->Oparations($_SESSION['__id'], 2,'22')) {
+        if ($journalizations->Oparations($_SESSION['__id'], 2,'13')) {
 
             return $this->redirect(['index']);
         }
     }
 
     /**
-     * Finds the Vacancy model based on its primary key value.
+     * Finds the Messages model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Vacancy the loaded model
+     * @return Messages the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Vacancy::findOne($id)) !== null) {
+        if (($model = Messages::findOne($id)) !== null) {
             return $model;
         }
 

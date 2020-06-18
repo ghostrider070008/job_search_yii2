@@ -157,4 +157,8 @@ class Resumes extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Users::className(), ['id' => 'id_user']);
     }
+    public function getCountResume($id_status){
+        $sql = 'SELECT count(id) from resumes where id_status=:id_status;';
+        return static::findBySql($sql,[':id_status' => $id_status] )->column();
+    }
 }
