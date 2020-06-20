@@ -2,12 +2,14 @@
 
 namespace app\models;
 
+use app\modules\admin\models\Position;
 use Yii;
 use app\modules\admin\models\Cities;
 use app\modules\admin\models\Educations;
 use app\modules\admin\models\Status;
 use app\modules\admin\models\Citizenship;
 use yii\behaviors\TimestampBehavior;
+use app\models\User;
 
 /**
  * This is the model class for table "resumes".
@@ -73,7 +75,7 @@ class Resumes extends \yii\db\ActiveRecord
             [['id_education'], 'exist', 'skipOnError' => true, 'targetClass' => Educations::className(), 'targetAttribute' => ['id_education' => 'id']],
             [['id_status'], 'exist', 'skipOnError' => true, 'targetClass' => Status::className(), 'targetAttribute' => ['id_status' => 'id']],
             [['id_citizenship'], 'exist', 'skipOnError' => true, 'targetClass' => Citizenship::className(), 'targetAttribute' => ['id_citizenship' => 'id']],
-            [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['id_user' => 'id']],
+            [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id_user' => 'id']],
             [['created_at', 'updated_at'], 'safe'],
             ];
     }
@@ -117,13 +119,17 @@ class Resumes extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Cities::className(), ['id' => 'id_citi']);
     }
+    public function getPosition()
+    {
+        return $this->hasOne(Position::className(), ['id' => 'id_position']);
+    }
 
     /**
      * Gets query for [[Education0]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getEducation0()
+    public function getEducations()
     {
         return $this->hasOne(Educations::className(), ['id' => 'id_education']);
     }
@@ -155,7 +161,7 @@ class Resumes extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(Users::className(), ['id' => 'id_user']);
+        return $this->hasOne(User::className(), ['id' => 'id_user']);
     }
     public function getCountResume($id_status){
         $sql = 'SELECT count(id) from resumes where id_status=:id_status;';

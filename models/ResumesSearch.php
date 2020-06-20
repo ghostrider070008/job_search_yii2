@@ -2,15 +2,24 @@
 
 namespace app\models;
 
+use app\modules\admin\models\Educations;
+use app\modules\admin\models\Position;
+use app\modules\admin\models\Regions;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Resumes;
+use app\models\User;
 
 /**
  * ResumesSearch represents the model behind the search form of `app\models\Resumes`.
  */
 class ResumesSearch extends Resumes
 {
+    public $username;
+    public $position_name;
+    public $education_name;
+    public $citizenship;
+    public $status_name;
     /**
      * {@inheritdoc}
      */
@@ -18,7 +27,7 @@ class ResumesSearch extends Resumes
     {
         return [
             [['id', 'id_user', 'id_position', 'salary', 'id_citi', 'id_citizenship', 'id_education', 'id_status'], 'integer'],
-            [['family', 'name', 'patronomic', 'phone', 'e_mail', 'birthday', 'experience', 'education', 'personal_qualities', 'created_at', 'updated_at'], 'safe'],
+            [['family', 'name', 'patronomic', 'phone', 'e_mail', 'birthday', 'experience', 'education', 'personal_qualities', 'created_at', 'updated_at', 'username', 'position_name', 'education_name', 'citizenship', 'status_name'], 'safe'],
         ];
     }
 
@@ -41,12 +50,28 @@ class ResumesSearch extends Resumes
     public function search($params)
     {
         $query = Resumes::find();
+        $query->joinWith(['user']);
+        $query->joinWith(['position']);
+        $query->joinWith(['educations']);
+
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+        $dataProvider->sort->attributes['username'] = [
+            'asc' => [User::tableName().'.username' => SORT_ASC],
+            'desc' => [User::tableName().'.username' => SORT_DESC],
+        ];
+        $dataProvider->sort->attributes['position_name'] = [
+            'asc' => [Position::tableName().'.name' => SORT_ASC],
+            'desc' => [Position::tableName().'.name' => SORT_DESC],
+        ];
+        $dataProvider->sort->attributes['education_name'] = [
+            'asc' => [Educations::tableName().'.name' => SORT_ASC],
+            'desc' => [Educations::tableName().'.name' => SORT_DESC],
+        ];
 
         $this->load($params);
 
@@ -78,7 +103,10 @@ class ResumesSearch extends Resumes
             ->andFilterWhere(['like', 'e_mail', $this->e_mail])
             ->andFilterWhere(['like', 'experience', $this->experience])
             ->andFilterWhere(['like', 'education', $this->education])
-            ->andFilterWhere(['like', 'personal_qualities', $this->personal_qualities]);
+            ->andFilterWhere(['like', 'personal_qualities', $this->personal_qualities])
+            ->andFilterWhere(['like', User::tableName().'.username', $this->username])
+            ->andFilterWhere(['like', Position::tableName().'.name', $this->position_name])
+            ->andFilterWhere(['like', Educations::tableName().'.name', $this->education_name]);
 
         return $dataProvider;
     }

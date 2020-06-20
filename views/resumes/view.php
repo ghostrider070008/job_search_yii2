@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Resumes */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Resumes', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Резюме', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -16,23 +16,31 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Обновить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Вы действительно хотите удалить запись?',
                 'method' => 'post',
             ],
         ]) ?>
     </p>
+    <?
+    $user = new \app\models\User();
+    $position = new \app\modules\admin\models\Position();
+    echo "Имя пользователя:". $user->getUsername($model->id)[0];
+    ?>
+
+
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'id_user',
-            'family',
-            'name',
+            ['attribute' => 'username', 'label' => 'Имя пользователя', 'value' => $user->getUsername($model->id)[0] ],
+            ['attribute' => 'family', 'label' => 'Фамилия'],
+            ['attribute' => 'name', 'label' => 'Имя'],
+            ['attribute' => 'patronomic', 'label' => 'Отчество'],
+            ['attribute' => 'position_name', 'label' => 'Специальность', 'value' => $position->getPosition($model->id_position)[0] ],
             'patronomic',
             'id_position',
             'salary',

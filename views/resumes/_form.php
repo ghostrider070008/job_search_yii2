@@ -24,7 +24,7 @@ use app\modules\admin\models\Position;
 
     <?= $form->field($model, 'id_position')->dropdownList(
         Position::find()->select(['name', 'id'])->indexBy('id')->column(),
-        ['prompt'=>'Выберите должность'])->label('Желаемая должность');?>
+        ['prompt'=>'Выберите профессию'])->label('Профессия');?>
 
     <?= $form->field($model, 'salary')->textInput(['placeholder' => 'Желаемая заработная плата...'])->label(false) ?>
 

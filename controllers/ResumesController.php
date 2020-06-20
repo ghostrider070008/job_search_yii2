@@ -54,9 +54,18 @@ class ResumesController extends Controller
      */
     public function actionView($id)
     {
+        return $this->render('view_common', [
+            'model' => $this->findModel($id),
+        ]);
+
+    }
+    /*Контроллер для общиего просмотра резюме*/
+    public function actionViewCommon($id)
+    {
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
+
     }
 
     /**

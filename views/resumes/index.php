@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\ResumesSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Resumes';
+$this->title = 'Безработное население в поисках работы';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="resumes-index">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Resumes', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить резюме', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -25,19 +25,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+            ['attribute' => 'username', 'label' => 'Логин', 'value' => 'user.username'],
+            ['attribute' => 'family', 'label' =>'Фамилия'],
+            ['attribute' => 'position_name', 'label' => 'Профессия', 'value' => 'position.name'],
+            ['attribute' => 'e_mail', 'label' =>'e-mail'],
+            ['attribute' => 'education_name', 'label' => 'Образование', 'value' => 'educations.name'],
 
-            'id',
-            'id_user',
-            'family',
-            'name',
-            'patronomic',
-            //'id_position',
-            //'salary',
-            //'phone',
-            //'e_mail',
-            //'id_citi',
-            //'id_citizenship',
-            //'birthday',
             //'id_education',
             //'experience:ntext',
             //'education:ntext',

@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Resumes */
 
-$this->title = 'Добавление резюме';
-$this->params['breadcrumbs'][] = ['label' => 'Резюме', 'url' => ['index']];
+$this->title = 'Регистрация безработного лица находящегося в поиске работы:';
+$this->params['breadcrumbs'][] = ['label' => 'Безработные лица', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="resumes-create">

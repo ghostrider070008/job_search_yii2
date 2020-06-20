@@ -3,6 +3,7 @@
 namespace app\modules\admin\models;
 
 use Yii;
+use yii\db\Query;
 
 /**
  * This is the model class for table "citizenship".
@@ -51,5 +52,12 @@ class Citizenship extends \yii\db\ActiveRecord
     public function getResumes()
     {
         return $this->hasMany(Resumes::className(), ['id_user' => 'id']);
+    }
+    public function getCitizenship($id){
+        $query = new Query();
+        return $query->select('name')
+            ->from('citizenship')
+            ->where('id=:id',['id' => $id])
+            ->column();
     }
 }

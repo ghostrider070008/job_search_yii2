@@ -3,6 +3,8 @@
 namespace app\modules\admin\models;
 
 use Yii;
+use app\models\Vacancy;
+use yii\db\Query;
 
 /**
  * This is the model class for table "position".
@@ -52,5 +54,13 @@ class Position extends \yii\db\ActiveRecord
     public function getVacancies()
     {
         return $this->hasMany(Vacancy::className(), ['id_positions' => 'id']);
+    }
+    public function getPosition($position_id){
+
+        $query = new Query();
+        return $query->select('name')
+            ->from('position')
+            ->where('id=:position_id',['position_id' => $position_id])
+            ->column();
     }
 }

@@ -3,6 +3,7 @@
 namespace app\modules\admin\models;
 
 use Yii;
+use yii\db\Query;
 
 /**
  * This is the model class for table "educations".
@@ -63,5 +64,12 @@ class Educations extends \yii\db\ActiveRecord
     public function getVacancies()
     {
         return $this->hasMany(Vacancy::className(), ['id_educations' => 'id']);
+    }
+    public function getEducation($id){
+        $query = new Query();
+        return $query->select('name')
+            ->from('educations')
+            ->where('id=:id',['id' => $id])
+            ->column();
     }
 }

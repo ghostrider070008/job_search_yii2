@@ -3,6 +3,7 @@
 namespace app\modules\admin\models;
 
 use Yii;
+use yii\db\Query;
 
 /**
  * This is the model class for table "status".
@@ -62,5 +63,12 @@ class Status extends \yii\db\ActiveRecord
     public function getVacancies()
     {
         return $this->hasMany(Vacancy::className(), ['id_status' => 'id']);
+    }
+    public function getStatus($id){
+        $query = new Query();
+        return $query->select('name')
+            ->from('status')
+            ->where('id=:id',['id' => $id])
+            ->column();
     }
 }
