@@ -3,7 +3,11 @@ body {
     height: 100%;
 }
 
+.banner{height:500px;background-image:url(../static/img/banner.png);background-position:top;background-size:cover;background-repeat:no-repeat}
+.find{padding-top:15%;padding-left:15%}.find h3{font-size:26pt;color:#fff}.find input{padding-left:20px;border-radius:50px 0 0 50px;height:33px;border:0}.find input::-moz-placeholder{color:#1a1b22}.find input::-webkit-input-placeholder{color:#1a1b22}.find button{border:0;border-radius:0 50px 50px 0;background-color:#60bcff; padding: 8px;margin-left: -4px;}
+
 .wrap {
+
     min-height: 100%;
     height: auto;
     margin: 0 auto -60px;
@@ -11,7 +15,7 @@ body {
 }
 
 .wrap > .container {
-    padding: 70px 15px 20px;
+    
 }
 
 .footer {
