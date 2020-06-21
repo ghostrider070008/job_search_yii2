@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ResumesSearch */
@@ -15,37 +16,37 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Добавить резюме', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-    <?
-    $resume = new \app\models\Resumes();
-    $resume->getResumesUser($_SESSION['__id']);?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            ['attribute' => 'id_user', 'label' => 'id'],
             ['attribute' => 'username', 'label' => 'Логин', 'value' => 'user.username'],
             ['attribute' => 'family', 'label' =>'Фамилия'],
             ['attribute' => 'position_name', 'label' => 'Профессия', 'value' => 'position.name'],
             ['attribute' => 'e_mail', 'label' =>'e-mail'],
             ['attribute' => 'education_name', 'label' => 'Образование', 'value' => 'educations.name'],
-
-            //'id_education',
-            //'experience:ntext',
-            //'education:ntext',
-            //'personal_qualities:ntext',
-            //'id_status',
-            //'created_at',
-            //'updated_at',
-
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'header'=>'Действия',
+                'template' => '{view-common}{send}',
+                'buttons' => [
+                    'view-common' => function ($url, $model) {
+                        return Html::a(
+                            'Просмотреть',
+                            ['/resumes/view-common', 'id' => $model->id]);
+                    },
+                    'send' => function ($url, $model) {
+                        return Html::a(
+                            'Написать',[
+                            '/messages/create-common', 'id_user' => $model->id_user]);
+                    },
+                    ],
         ],
-    ]); ?>
+    ]]); ?>
 
 
 </div>

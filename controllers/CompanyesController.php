@@ -44,6 +44,8 @@ class CompanyesController extends Controller
         ]);
     }
 
+
+
     /**
      * Displays a single Companyes model.
      * @param integer $id

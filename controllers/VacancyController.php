@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\ResumesSearch;
 use app\modules\admin\models\Journalizations;
 use Yii;
 use app\models\Vacancy;
@@ -44,6 +45,18 @@ class VacancyController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+    public function actionIndexCommon()
+    {
+        $searchModel = new VacancySearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index_common', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+
 
     /**
      * Displays a single Vacancy model.

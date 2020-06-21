@@ -46,6 +46,17 @@ class ResumesController extends Controller
         ]);
     }
 
+    public function actionIndexCommon()
+    {
+        $searchModel = new ResumesSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index_common', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     /**
      * Displays a single Resumes model.
      * @param integer $id
@@ -53,6 +64,14 @@ class ResumesController extends Controller
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
+    {
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+
+    }
+
+    public function actionMessagesCreate($id)
     {
         return $this->render('view_common', [
             'model' => $this->findModel($id),
@@ -62,7 +81,7 @@ class ResumesController extends Controller
     /*Контроллер для общиего просмотра резюме*/
     public function actionViewCommon($id)
     {
-        return $this->render('view', [
+        return $this->render('view_common', [
             'model' => $this->findModel($id),
         ]);
 

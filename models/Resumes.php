@@ -167,4 +167,8 @@ class Resumes extends \yii\db\ActiveRecord
         $sql = 'SELECT count(id) from resumes where id_status=:id_status;';
         return static::findBySql($sql,[':id_status' => $id_status] )->column();
     }
+    public function getResumesUser($user_id){
+        $sql = 'SELECT * from resumes where id_user=:user_id;';
+        return static::findBySql($sql,[':user_id' => $user_id] )->all();
+    }
 }

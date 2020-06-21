@@ -10,6 +10,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Безработные лица', 
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="resumes-create">
+    <? var_dump($_SESSION['__role_name'][0]);?>
 
     <h1><?= Html::encode($this->title) ?></h1>
 

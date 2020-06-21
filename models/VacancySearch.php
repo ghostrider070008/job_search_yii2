@@ -2,6 +2,9 @@
 
 namespace app\models;
 
+use app\modules\admin\models\Educations;
+use app\modules\admin\models\Position;
+use app\modules\admin\models\Schedule;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Vacancy;
@@ -11,14 +14,21 @@ use app\models\Vacancy;
  */
 class VacancySearch extends Vacancy
 {
+
     /**
      * {@inheritdoc}
      */
+
+    public $company_name;
+    public $position_name;
+    public $education_name;
+    public $schedule_name;
+
     public function rules()
     {
         return [
             [['id', 'id_companyes', 'id_status', 'id_cities', 'id_positions', 'id_educations', 'salary', 'id_schedules'], 'integer'],
-            [['text', 'phone', 'e_mail', 'created_at'], 'safe'],
+            [['text', 'phone', 'e_mail', 'created_at', 'company_name', 'position_name', 'education_name', 'schedule_name'], 'safe'],
         ];
     }
 
@@ -41,12 +51,35 @@ class VacancySearch extends Vacancy
     public function search($params)
     {
         $query = Vacancy::find();
+        $query->joinWith(['positions']);
+        $query->joinWith(['companyes']);
+        $query->joinWith(['educations']);
+        $query->joinWith(['schedules']);
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
+        $dataProvider->sort->attributes['company_name'] = [
+            'asc' => [Companyes::tableName().'.name' => SORT_ASC],
+            'desc' => [Companyes::tableName().'.name' => SORT_DESC],
+        ];
+
+        $dataProvider->sort->attributes['position_name'] = [
+            'asc' => [Position::tableName().'.name' => SORT_ASC],
+            'desc' => [Position::tableName().'.name' => SORT_DESC],
+        ];
+
+        $dataProvider->sort->attributes['education_name'] = [
+            'asc' => [Educations::tableName().'.name' => SORT_ASC],
+            'desc' => [Educations::tableName().'.name' => SORT_DESC],
+        ];
+        $dataProvider->sort->attributes['schedule_name'] = [
+            'asc' => [Schedule::tableName().'.name' => SORT_ASC],
+            'desc' => [Schedule::tableName().'.name' => SORT_DESC],
+        ];
 
         $this->load($params);
 
@@ -71,7 +104,11 @@ class VacancySearch extends Vacancy
 
         $query->andFilterWhere(['like', 'text', $this->text])
             ->andFilterWhere(['like', 'phone', $this->phone])
-            ->andFilterWhere(['like', 'e_mail', $this->e_mail]);
+            ->andFilterWhere(['like', 'e_mail', $this->e_mail])
+            ->andFilterWhere(['like', Companyes::tableName().'.name', $this->company_name])
+            ->andFilterWhere(['like', Position::tableName().'.name', $this->position_name])
+            ->andFilterWhere(['like', Educations::tableName().'.name', $this->education_name])
+            ->andFilterWhere(['like', Schedule::tableName().'.name', $this->schedule_name]);
 
         return $dataProvider;
     }

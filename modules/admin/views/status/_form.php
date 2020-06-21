@@ -20,4 +20,15 @@ use yii\widgets\ActiveForm;
 
     <?php ActiveForm::end(); ?>
 
+    <?php
+    $js = <<<JS
+    $('form').on('beforeSubmit', function(){
+        alert('Работает!');
+        return false;
+    });
+JS;
+
+    $this->registerJs($js);
+    ?>
+
 </div>

@@ -63,6 +63,13 @@ class MessagesController extends Controller
         ]);
     }
 
+    public function actionViewCommon($id_user)
+    {
+        return $this->render('view', [
+            'model' => $this->findModel($id_user),
+        ]);
+    }
+
     /**
      * Creates a new Messages model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -84,6 +91,26 @@ class MessagesController extends Controller
         }
 
         return $this->render('create', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionCreateCommon()
+    {
+        $model = new Messages();
+
+        if ($model->load(Yii::$app->request->post())){
+            $model->created_at = gmdate("Y-m-d H:i:s");
+            $model->id_users_sender = $_SESSION['__id'];
+            if ($model->save()) {
+                $journalizations = new Journalizations();
+                if ($journalizations->Oparations($_SESSION['__id'], 1,'13')) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+            }
+        }
+
+        return $this->render('create_common', [
             'model' => $model,
         ]);
     }

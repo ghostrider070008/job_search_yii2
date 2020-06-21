@@ -16,10 +16,16 @@ AppAsset::register($this);
     <a href="<?= Url::to(['/messages/index'])?>">Сообщения</a>
 </div>
 <div>
-    <a href="<?= Url::to(['/resumes/index'])?>">Резюме</a>
+    <? if ($_SESSION['__role_name'][0]=="vacant"){
+        echo Html::a('Вакансии', [Url::to(['/vacancy/index'])]);
+    }
+        if ($_SESSION['__role_name'][0]=="work"){
+            echo Html::a('Резюме', [Url::to(['/resumes/index'])]);
+        }
+
+    ?>
 </div>
 <div>
-    <a href="<?= Url::to(['/vacancy/index'])?>">Вакансии</a>
 </div>
 <div>
     <a href="<?= Url::to(['/companyes/index'])?>">Компании</a>
