@@ -1,0 +1,27 @@
+Сколько ищут работу(резюме статус активный)+, сколько нашло работу(статус вакансии закрыто)+, сколько открытых вакансий+.
+личный кабинет по переписке и заполнение резюме(), просмотр резюме, добавление вакансии, просмотр вакансии. Журнализация
+
+Таблица Наименований таблиц:
+tables:
+id
+name
+
+Таблица Журнализации:
+journalizations:
+id
+id_user
+id_operations
+id_table
+created_at
+
+
+
+ public function Oparations($id_users, $id_operations){
+        $model = new Journalizations();
+        $model->id_users = $id_users;
+        $model->id_operations = $id_operations;
+        $model->created_at = gmdate("Y-m-d H:i:s");
+        return $model->save();
+    }
+
+Создать вторичный ключ по операциям
