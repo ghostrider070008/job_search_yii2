@@ -1,13 +1,13 @@
--- MySQL dump 10.13  Distrib 8.0.20, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.14, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: job_search_db
 -- ------------------------------------------------------
--- Server version	5.7.29
+-- Server version	8.0.15
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8 */;
+ SET NAMES utf8 ;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -21,10 +21,10 @@
 
 DROP TABLE IF EXISTS `auth_assignment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `auth_assignment` (
-  `item_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `user_id` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `item_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `user_id` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `created_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`item_name`,`user_id`),
   KEY `idx-auth_assignment-user_id` (`user_id`),
@@ -47,12 +47,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `auth_item`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `auth_item` (
-  `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `type` smallint(6) NOT NULL,
-  `description` text COLLATE utf8_unicode_ci,
-  `rule_name` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+  `rule_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `data` blob,
   `created_at` int(11) DEFAULT NULL,
   `updated_at` int(11) DEFAULT NULL,
@@ -79,10 +79,10 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `auth_item_child`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `auth_item_child` (
-  `parent` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `child` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `parent` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `child` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`parent`,`child`),
   KEY `child` (`child`),
   CONSTRAINT `auth_item_child_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -105,9 +105,9 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `auth_rule`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `auth_rule` (
-  `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `data` blob,
   `created_at` int(11) DEFAULT NULL,
   `updated_at` int(11) DEFAULT NULL,
@@ -130,11 +130,11 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cities`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `cities` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_region` int(11) NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk-cities-id_region` (`id_region`),
   CONSTRAINT `fk-cities-id_region` FOREIGN KEY (`id_region`) REFERENCES `regions` (`id`)
@@ -157,10 +157,10 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `citizenship`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `citizenship` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -181,13 +181,13 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `companyes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `companyes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `e_mail` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `e_mail` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `fk-companyes_user_id` (`user_id`),
@@ -211,10 +211,10 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `countrys`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `countrys` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -235,12 +235,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `educations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `educations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -249,7 +249,7 @@ CREATE TABLE `educations` (
 
 LOCK TABLES `educations` WRITE;
 /*!40000 ALTER TABLE `educations` DISABLE KEYS */;
-INSERT INTO `educations` VALUES (1,'Высшее');
+INSERT INTO `educations` VALUES (1,'Высшее'),(2,'Среднее'),(3,'средне-техническое'),(4,'Неоконченное высшее');
 /*!40000 ALTER TABLE `educations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -259,12 +259,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `employment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `employment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -273,6 +273,7 @@ CREATE TABLE `employment` (
 
 LOCK TABLES `employment` WRITE;
 /*!40000 ALTER TABLE `employment` DISABLE KEYS */;
+INSERT INTO `employment` VALUES (1,'Полный день');
 /*!40000 ALTER TABLE `employment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -282,10 +283,10 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `gender`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `gender` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -305,7 +306,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `journalizations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `journalizations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_operations` int(11) NOT NULL,
@@ -319,7 +320,7 @@ CREATE TABLE `journalizations` (
   CONSTRAINT `fk_journalizations_id_operations` FOREIGN KEY (`id_operations`) REFERENCES `operations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_journalizations_table_id` FOREIGN KEY (`id_tables`) REFERENCES `tables` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_journalizations_users_id` FOREIGN KEY (`id_users`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -328,7 +329,7 @@ CREATE TABLE `journalizations` (
 
 LOCK TABLES `journalizations` WRITE;
 /*!40000 ALTER TABLE `journalizations` DISABLE KEYS */;
-INSERT INTO `journalizations` VALUES (1,1,21,15,'2020-06-17 16:32:09');
+INSERT INTO `journalizations` VALUES (1,1,21,15,'2020-06-17 16:32:09'),(2,1,17,1,'2020-06-21 03:28:27'),(3,1,17,1,'2020-06-21 03:28:49'),(4,1,17,1,'2020-06-21 03:29:26'),(5,1,17,1,'2020-06-21 03:55:25'),(6,1,17,1,'2020-06-21 03:58:05'),(7,1,17,1,'2020-06-21 03:58:37'),(8,1,17,1,'2020-06-21 03:59:36'),(9,1,17,1,'2020-06-21 03:59:52'),(10,1,17,1,'2020-06-21 04:00:18'),(11,1,17,1,'2020-06-21 04:00:54'),(12,1,17,1,'2020-06-21 04:04:05'),(13,1,17,12,'2020-06-21 09:52:43');
 /*!40000 ALTER TABLE `journalizations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -338,12 +339,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `messages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `messages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_users_sender` int(11) DEFAULT NULL,
   `id_users_recipient` int(11) DEFAULT NULL,
-  `text` text COLLATE utf8mb4_unicode_ci,
+  `text` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `fk_messages_user_id` (`id_users_sender`),
@@ -369,9 +370,9 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `migration`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `migration` (
-  `version` varchar(180) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `version` varchar(180) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `apply_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -393,10 +394,10 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `operations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `operations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -417,12 +418,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `position`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `position` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -431,7 +432,7 @@ CREATE TABLE `position` (
 
 LOCK TABLES `position` WRITE;
 /*!40000 ALTER TABLE `position` DISABLE KEYS */;
-INSERT INTO `position` VALUES (1,'Системный администратор');
+INSERT INTO `position` VALUES (1,'Системный администратор'),(2,'Бухгалтер'),(3,'Слесарь'),(4,'Сантехник');
 /*!40000 ALTER TABLE `position` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -441,11 +442,11 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `regions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `regions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_country` int(11) NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk-regions-id_country` (`id_country`),
   CONSTRAINT `fk-regions-id_country` FOREIGN KEY (`id_country`) REFERENCES `countrys` (`id`)
@@ -468,24 +469,24 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `resumes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `resumes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(11) NOT NULL,
-  `family` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `patronomic` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `family` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `patronomic` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `id_position` int(11) DEFAULT NULL,
   `salary` int(11) DEFAULT NULL,
-  `phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `e_mail` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `e_mail` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `id_citi` int(11) DEFAULT NULL,
   `id_citizenship` int(11) DEFAULT NULL,
   `birthday` date DEFAULT NULL,
   `id_education` int(11) DEFAULT NULL,
-  `experience` text COLLATE utf8mb4_unicode_ci,
-  `education` text COLLATE utf8mb4_unicode_ci,
-  `personal_qualities` text COLLATE utf8mb4_unicode_ci,
+  `experience` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `education` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `personal_qualities` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `id_status` int(11) DEFAULT NULL,
   `created_at` int(11) DEFAULT NULL,
   `updated_at` int(11) DEFAULT NULL,
@@ -500,7 +501,7 @@ CREATE TABLE `resumes` (
   CONSTRAINT `fk-resume-id-status` FOREIGN KEY (`id_status`) REFERENCES `status` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk-resume-id_citizenship` FOREIGN KEY (`id_citizenship`) REFERENCES `citizenship` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk-resumes-user_id` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -509,7 +510,7 @@ CREATE TABLE `resumes` (
 
 LOCK TABLES `resumes` WRITE;
 /*!40000 ALTER TABLE `resumes` DISABLE KEYS */;
-INSERT INTO `resumes` VALUES (1,1,'Иванов','Иван','Иванович',1,30000,'+7 (999) 999-99-99','my@mail.ru',1,1,'2001-06-20',1,'123','123','123',1,1592252656,1592252656),(2,1,'Иванов','Иван','Иванович',1,30000,'+7 (999) 999-99-99','my@mail.ru',1,1,'2001-06-20',1,'123','123','123',1,1592252669,1592252741),(3,1,'Васильев','Николай','Александрович',1,20554,'+7 (900) 000-00-00','my@mail.ru',1,1,'2024-06-20',1,'Мой опыт работы','Мое образование','Мои личные качества',1,1592310788,1592310788);
+INSERT INTO `resumes` VALUES (1,1,'Иванов','Иван','Иванович',1,30000,'+7 (999) 999-99-99','my@mail.ru',1,1,'2001-06-20',1,'123','123','123',1,1592252656,1592252656),(2,1,'Иванов','Иван','Иванович',1,30000,'+7 (999) 999-99-99','my@mail.ru',1,1,'2001-06-20',1,'123','123','123',1,1592252669,1592252741),(3,1,'Васильев','Николай','Александрович',1,20554,'+7 (900) 000-00-00','my@mail.ru',1,1,'2024-06-20',1,'Мой опыт работы','Мое образование','Мои личные качества',1,1592310788,1592310788),(7,1,'','','',NULL,NULL,'','',NULL,NULL,'2027-05-20',NULL,'','','',NULL,1592722525,1592722525),(8,1,'','','',NULL,NULL,'','',NULL,NULL,'1970-01-01',NULL,'','','',NULL,1592722685,1592722685),(9,1,'','','',NULL,NULL,'','',NULL,NULL,'1970-01-01',NULL,'','','',NULL,1592722717,1592722717),(10,1,'','','',NULL,NULL,'','',NULL,NULL,'2006-05-20',NULL,'','','',NULL,1592722776,1592722776),(11,1,'Николаев','Максим','Игорьевич',1,NULL,'','',NULL,NULL,'2006-05-20',NULL,'','','',NULL,1592722792,1592722792),(12,1,'Николаев','Максим','Игорьевич',1,30547,'+7 (900) 000-00-00','nikolay@mail.ru',1,1,'2006-05-20',2,'','','',NULL,1592722818,1592722818),(13,1,'Николаев','Максим','Игорьевич',1,30547,'+7 (900) 000-00-00','nikolay@mail.ru',1,1,'2006-05-20',2,'Проработал на СЗТА 5 лет слесарем','11 классов','',1,1592722854,1592722854),(14,1,'','','',NULL,NULL,'+7 (900) 000-00-00','',NULL,NULL,'2024-06-20',NULL,'','','',NULL,1592723045,1592723045),(15,12,'Николаев','2334','234',4,2347876,'+7 (900) 000-00-00','',NULL,NULL,NULL,NULL,'','','',1,1592743963,1592743963);
 /*!40000 ALTER TABLE `resumes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -519,10 +520,10 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `schedule`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `schedule` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -543,10 +544,10 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `status`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `status` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -567,10 +568,10 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `tables`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `tables` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -591,14 +592,14 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `role_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `auth_key` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `password_hash` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `role_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `auth_key` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password_hash` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` smallint(6) NOT NULL DEFAULT '10',
   `created_at` int(11) DEFAULT NULL,
   `updated_at` int(11) DEFAULT NULL,
@@ -619,12 +620,40 @@ INSERT INTO `users` VALUES (1,'vacant','admin','1_veQuWbnLGGXfvKA80quJSWqe84dT3B
 UNLOCK TABLES;
 
 --
+-- Table structure for table `usersi`
+--
+
+DROP TABLE IF EXISTS `usersi`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `usersi` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) DEFAULT NULL,
+  `hash_passw` varchar(255) DEFAULT NULL,
+  `e_mail` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `usersi`
+--
+
+LOCK TABLES `usersi` WRITE;
+/*!40000 ALTER TABLE `usersi` DISABLE KEYS */;
+INSERT INTO `usersi` VALUES (1,'admin','$2y$13$G/UVztK48VnX9AEi8M7Ou.3YJw2nDPNEYl/YPMrNSwkGigYxpvSd6','admin@mail.ru','2020-06-12 11:11:25',NULL),(2,'admin','$2y$13$6jaGXJAXxmfs5VFyEYhQ3u5mL1noDoIEAcHO3ay6IMshwzucvA22G','admin@mail.ru','2020-06-13 06:54:16',NULL),(3,'admin','$2y$13$z2I5TWW6dOxvwtqLgvD.cOCD6MdDaMq7IHR3VJG/fKKOm5dXpa1dC','admin@mail.ru','2020-06-20 16:46:31',NULL);
+/*!40000 ALTER TABLE `usersi` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `vacancy`
 --
 
 DROP TABLE IF EXISTS `vacancy`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `vacancy` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_companyes` int(11) NOT NULL,
@@ -634,9 +663,9 @@ CREATE TABLE `vacancy` (
   `id_educations` int(11) DEFAULT NULL,
   `salary` int(11) DEFAULT NULL,
   `id_schedules` int(11) DEFAULT NULL,
-  `text` text COLLATE utf8mb4_unicode_ci,
-  `phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `e_mail` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `text` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `e_mail` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `fk-vacancy-id-company` (`id_companyes`),
@@ -663,14 +692,6 @@ LOCK TABLES `vacancy` WRITE;
 INSERT INTO `vacancy` VALUES (1,1,1,1,1,1,30000,1,'12324','+7 (900) 000-00-00','my@mail.ru','2020-06-17 14:50:32');
 /*!40000 ALTER TABLE `vacancy` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping events for database 'job_search_db'
---
-
---
--- Dumping routines for database 'job_search_db'
---
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -681,4 +702,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-06-18  8:51:53
+-- Dump completed on 2020-06-23 12:49:23
