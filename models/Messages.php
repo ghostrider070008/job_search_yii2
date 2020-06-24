@@ -17,7 +17,8 @@ use app\models\User;
  */
 class Messages extends \yii\db\ActiveRecord
 {
-   public $username;
+   public $username_sender;
+   public $username_recipient;
     /**
      * {@inheritdoc}
      */
@@ -34,7 +35,7 @@ class Messages extends \yii\db\ActiveRecord
         return [
             [['id_users_sender', 'id_users_recipient'], 'integer'],
             [['text'], 'string'],
-            [['created_at'], 'safe'],
+            [['created_at','username_sender','username_recipient'], 'safe'],
             [['id_users_sender'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id_users_sender' => 'id']],
             [['id_users_recipient'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id_users_recipient' => 'id']],
         ];
@@ -68,7 +69,7 @@ class Messages extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'id_users_recipient']);
     }
     public function getMessages($user_id){
-        $sql = 'Select  messages.id_users_sender, messages.id_users_recipient, messages.text, messages.created_at FROM messages JOIN users ON users.Id = messages.id_users_sender WHere messages.id_users_sender=:user_id or messages.id_users_recipient=:user_id ;';
+        $sql = 'Select  messages.id, messages.id_users_sender, messages.id_users_recipient, messages.text, messages.created_at FROM messages JOIN users ON users.Id = messages.id_users_sender WHere messages.id_users_sender=:user_id or messages.id_users_recipient=:user_id ;';
         return static::findBySql($sql, [':user_id' => $user_id])->all();
 
     }

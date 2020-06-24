@@ -10,7 +10,13 @@ AppAsset::register($this);
 
 ?>
 <div>
-    <a href="<?= Url::to(['/admin/journalizations/index'])?>">Журнализация</a>
+    <? if ($_SESSION['__role_name'][0]=="admin"){
+        echo Html::a('Журнализация', [Url::to(['/admin/journalizations'])]);
+
+        echo '<div>'.Html::a('Вакансии', [Url::to(['/vacancy/index-common'])]).'</div>';
+        echo Html::a('Резюме', [Url::to(['/resumes/index-common'])]);
+    }?>
+
 </div>
 <div>
     <a href="<?= Url::to(['/messages/index'])?>">Сообщения</a>

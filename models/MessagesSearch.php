@@ -27,6 +27,7 @@ class MessagesSearch extends Messages
      */
     public function rules()
     {
+
         return [
             [['id_users_sender', 'id_users_recipient'], 'integer'],
             [['text'], 'string'],
