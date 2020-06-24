@@ -52,4 +52,9 @@ class Schedule extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Vacancy::className(), ['id_schedules' => 'id']);
     }
+
+    public function  getScheduleName($id){
+        $sql = 'SELECT name from schedule where id=:id;';
+        return static::findBySql($sql,[':id' => $id] )->column()[0];
+    }
 }

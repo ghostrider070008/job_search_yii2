@@ -81,4 +81,10 @@ class Companyes extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Vacancy::className(), ['id_companyes' => 'id']);
     }
+    public function getCompanyName($id){
+        $sql = 'SELECT name from companyes where id=:id;';
+        return static::findBySql($sql,[':id' => $id] )->column()[0];
+
+    }
+
 }

@@ -70,6 +70,12 @@ class VacancyController extends Controller
             'model' => $this->findModel($id),
         ]);
     }
+    public function actionViewCommon($id)
+    {
+        return $this->render('view_common', [
+            'model' => $this->findModel($id),
+        ]);
+    }
 
     /**
      * Creates a new Vacancy model.

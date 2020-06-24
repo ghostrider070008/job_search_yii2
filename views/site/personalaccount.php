@@ -17,10 +17,10 @@ AppAsset::register($this);
 </div>
 <div>
     <? if ($_SESSION['__role_name'][0]=="vacant"){
-        echo Html::a('Вакансии', [Url::to(['/vacancy/index'])]);
+        echo Html::a('Вакансии', [Url::to(['/vacancy/index-common'])]);
     }
         if ($_SESSION['__role_name'][0]=="work"){
-            echo Html::a('Резюме', [Url::to(['/resumes/index'])]);
+            echo Html::a('Резюме', [Url::to(['/resumes/index-common'])]);
         }
 
     ?>

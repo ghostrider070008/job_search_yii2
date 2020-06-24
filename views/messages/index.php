@@ -16,6 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Написать', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+    <?
+    ?>
 
 
 
@@ -23,6 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+            ['attribute' => 'username_sender', 'label' => 'Логин', 'value' =>'users.username'],
 
             'id',
             'id_users_sender',

@@ -5,19 +5,15 @@ namespace app\models;
 use Yii;
 use yii\grid\Column;
 use app\models\User;
+use yii\base\Model;
+use yii\data\ActiveDataProvider;
+use app\models\Messages;
 
-/**
- * This is the model class for table "messages".
- *
- * @property int $id
- * @property int|null $id_users_sender
- * @property int|null $id_users_recipient
- * @property string|null $text
- * @property string|null $created_at
- */
-class Messages extends \yii\db\ActiveRecord
+
+class MessagesSearch extends Messages
 {
-   public $username;
+   public $username_sender;
+   public $username_recipient;
     /**
      * {@inheritdoc}
      */
@@ -34,7 +30,7 @@ class Messages extends \yii\db\ActiveRecord
         return [
             [['id_users_sender', 'id_users_recipient'], 'integer'],
             [['text'], 'string'],
-            [['created_at'], 'safe'],
+            [['created_at','username_sender', 'username_recipient'], 'safe'],
             [['id_users_sender'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id_users_sender' => 'id']],
             [['id_users_recipient'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id_users_recipient' => 'id']],
         ];

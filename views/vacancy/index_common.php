@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'send' => function ($url, $model) {
                         return Html::a(
                             'Написать',[
-                            '/messages/create-common']);
+                            '/messages/create-common', 'id_user' => $model->getUserId($model->id_companyes)]);
                     },
                     ],
                 ],

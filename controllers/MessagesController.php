@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Vacancy;
 use app\modules\admin\models\Journalizations;
 use Yii;
 use app\models\User;
@@ -39,6 +40,21 @@ class MessagesController extends Controller
     {
         $dataProvider = new ActiveDataProvider([
             'query' => Messages::find(),
+        ]);
+
+
+
+
+
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+    public function actionIndexCommon()
+    {
+        $dataProvider = new ActiveDataProvider([
+            'query' => Messages::find()
+            ->where('id_users_sender=:id_users_sender or id_users_recipient=:id_users_sender',[':id_users_sender'=>$_SESSION['__id']]),
         ]);
 
 
@@ -102,6 +118,7 @@ class MessagesController extends Controller
         if ($model->load(Yii::$app->request->post())){
             $model->created_at = gmdate("Y-m-d H:i:s");
             $model->id_users_sender = $_SESSION['__id'];
+            $model->id_users_recipient = $_SESSION['id_user_recipient'];
             if ($model->save()) {
                 $journalizations = new Journalizations();
                 if ($journalizations->Oparations($_SESSION['__id'], 1,'13')) {
@@ -114,6 +131,7 @@ class MessagesController extends Controller
             'model' => $model,
         ]);
     }
+
 
     /**
      * Updates an existing Messages model.
@@ -170,4 +188,6 @@ class MessagesController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+
 }
