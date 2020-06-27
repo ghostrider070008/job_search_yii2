@@ -152,4 +152,8 @@ class Vacancy extends \yii\db\ActiveRecord
         $sql = 'SELECT count(id) from vacancy where id_status=:id_status;';
         return static::findBySql($sql,[':id_status' => $id_status] )->column();
     }
+    public function getUserId($id_company){
+        $sql = 'SELECT user_id from companyes where user_id=:id_company;';
+        return static::findBySql($sql,[':id_company' => $id_company] )->column()[0];
+    }
 }

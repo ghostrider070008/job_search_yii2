@@ -171,4 +171,18 @@ class Resumes extends \yii\db\ActiveRecord
         $sql = 'SELECT * from resumes where id_user=:user_id;';
         return static::findBySql($sql,[':user_id' => $user_id] )->all();
     }
+    /* Число нашедших работу за последний месяц */
+    public function getCountStatusFind(){
+        $sql = 'SELECT count(*) from resumes where id_status=2 AND updated_at>(updated_at-2592000);';
+        return static::findBySql($sql)->column();
+    }
+    public function getCountResumes(){
+        $sql = 'SELECT count(*) from resumes where updated_at>(updated_at-2592000);';
+        return static::findBySql($sql)->column();
+    }
+    public function getCountResumesEducations($id){
+        $sql = 'SELECT count(*) from resumes where id_education=:id;';
+        return static::findBySql($sql,[':id' => $id] )->column()[0];
+    }
+
 }

@@ -11,10 +11,8 @@ use \app\models\User;
 
 <div class="messages-form">
     <?php
-        $sql = 'SELECT `username`, `id` FROM `users` WHERE id=:user_id';
         $user = new User();
         $username = $user->getUsername($_GET['id_user'])[0];
-        $_SESSION['id_user_recipient'] = $_GET['id_user'];
     ?>
 
     <?php $form = ActiveForm::begin(); ?>

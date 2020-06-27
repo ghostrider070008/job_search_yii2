@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Resumes;
 use app\models\User;
 use app\models\Usersi;
 use app\models\Vacancy;
@@ -177,6 +178,12 @@ class SiteController extends Controller
     public function actionPersonalAccount(){
 
         return $this->render('personalaccount');
+    }
+    public function actionStatistic()
+    {
+        $resumes = new Resumes();
+        return $this->render('statistic', ['resumes' => $resumes]);
+
     }
 
 }

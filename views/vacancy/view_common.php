@@ -5,27 +5,16 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Vacancy */
-
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Vacancies', 'url' => ['index']];
+$company = new \app\models\Companyes();
+$this->title = $company->getCompanyName($model->id_companyes);
+$this->params['breadcrumbs'][] = ['label' => 'Вакансии', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="vacancy-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Вы действильно хотите удалить эту запись?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
-    <?  $company = new \app\models\Companyes();
+    <?
     $position = new \app\modules\admin\models\Position();
     $education = new \app\modules\admin\models\Educations();
     $schedule = new \app\modules\admin\models\Schedule();

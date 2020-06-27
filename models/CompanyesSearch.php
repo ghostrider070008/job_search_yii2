@@ -11,6 +11,7 @@ use app\models\Companyes;
  */
 class CompanyesSearch extends Companyes
 {
+    public $username;
     /**
      * {@inheritdoc}
      */
@@ -18,7 +19,7 @@ class CompanyesSearch extends Companyes
     {
         return [
             [['id', 'user_id'], 'integer'],
-            [['name', 'phone', 'e_mail', 'created_at'], 'safe'],
+            [['name', 'phone', 'e_mail', 'created_at', 'username'], 'safe'],
         ];
     }
 
@@ -41,12 +42,18 @@ class CompanyesSearch extends Companyes
     public function search($params)
     {
         $query = Companyes::find();
+            $query->joinWith(['user']);
+
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+        $dataProvider->sort->attributes['username'] = [
+            'asc' => [User::tableName().'.username' => SORT_ASC],
+            'desc' => [User::tableName().'.username' => SORT_DESC],
+        ];
 
         $this->load($params);
 
@@ -65,7 +72,8 @@ class CompanyesSearch extends Companyes
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'phone', $this->phone])
-            ->andFilterWhere(['like', 'e_mail', $this->e_mail]);
+            ->andFilterWhere(['like', 'e_mail', $this->e_mail])
+            ->andFilterWhere(['like', User::tableName().'.username', $this->username]);
 
         return $dataProvider;
     }
