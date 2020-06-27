@@ -26,11 +26,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'user_id',
-            'name',
-            'phone',
-            'e_mail',
+            ['attribute' => 'username', 'label' => 'Логин', 'value' => 'user.username'],
+            ['attribute' => 'name', 'label' => 'Наименование компании'],
+            ['attribute' => 'phone', 'label' => 'Телефон'],
+            ['attribute' => 'e_mail', 'label' => 'E-mail'],
             //'created_at',
 
             ['class' => 'yii\grid\ActionColumn'],
